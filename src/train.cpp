@@ -1,24 +1,5 @@
 // Copyright 2021 NNTU-CS
 #include "train.h"
-class Train {
- private:
-  struct Car {
-    bool light;
-    Car* next;
-    Car* prev;
-  };
-  int countOp;
-  Car* first;
-
- public:
-  Train();
-  ~Train();
-  void addCar(bool light);
-  int getLength();
-  int getOpCount();
-};
-
-// src/train.cpp
 Train::Train() : countOp(0), first(nullptr) {}
 
 Train::~Train() {
