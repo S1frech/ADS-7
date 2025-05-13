@@ -116,7 +116,7 @@ int main() {
       for (int i = 0; i < n; i++) train.addCar(false);
 
       auto start = std::chrono::high_resolution_clock::now();
-      int length = train.getLength();
+      train.getLength();  // Результат не сохраняется, так как не используется
       auto end = std::chrono::high_resolution_clock::now();
 
       double time =
@@ -132,7 +132,7 @@ int main() {
       for (int i = 0; i < n; i++) train.addCar(true);
 
       auto start = std::chrono::high_resolution_clock::now();
-      int length = train.getLength();
+      train.getLength();  // Результат не сохраняется
       auto end = std::chrono::high_resolution_clock::now();
 
       double time =
@@ -152,7 +152,7 @@ int main() {
         for (int i = 0; i < n; i++) train.addCar(std::rand() % 2 == 0);
 
         auto start = std::chrono::high_resolution_clock::now();
-        int length = train.getLength();
+        train.getLength();  // Результат не сохраняется
         auto end = std::chrono::high_resolution_clock::now();
 
         time_sum +=
