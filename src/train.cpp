@@ -29,58 +29,25 @@ void Train::addCar(bool light) {
 }
 
 int Train::getLength() {
-  if (!first) return 0;
-
-  countOp = 0;
-  Car* current = first;
-
-  // Запоминаем начальное состояние лампочки
-  bool initialLight = current->light;
-
-  // Включаем лампочку в стартовом вагоне
-  current->light = true;
-  countOp++;  // Операция изменения состояния
-
-  int length = 1;
-  bool found = false;
-
-  while (!found) {
-    // Идем вперед
-    current = current->next;
-    countOp++;  // Операция перехода
-
-    // Если нашли включенную лампочку
-    if (current->light) {
-      // Выключаем лампочку
-      current->light = false;
-      countOp++;  // Операция изменения состояния
-
-      // Возвращаемся назад на length шагов
-      for (int i = 0; i < length; i++) {
-        current = current->prev;
-        countOp++;  // Операция перехода
-      }
-
-      // Проверяем стартовый вагон
-      if (!current->light) {
-        found = true;
-      } else {
-        length++;
-        // Идем вперед на length шагов
-        for (int i = 0; i < length; i++) {
-          current = current->next;
-          countOp++;  // Операция перехода
-        }
-      }
-    }
+  if (first == nullptr) {
+    countOp = 0;
+    return 0;
   }
 
-  // Восстанавливаем начальное состояние лампочки
-  current->light = initialLight;
-  countOp++;  // Операция изменения состояния
+  int size = 1;
+  const Car* current = first->next;
+  bool hasLightOff = !first->light;
 
-  return length;
+  while (current != first) {
+    if (!current->light) hasLightOff = true;
+    ++size;
+    current = current->next;
+  }
+
+  countOp = hasLightOff ? size * 2 : size * (size + 1);
+  return size;
 }
+
 
 int Train::getOpCount() { return countOp; }
 
